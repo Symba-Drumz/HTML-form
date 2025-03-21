@@ -1,15 +1,20 @@
 
 // Array to store shopping list items
-let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
+let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || []; // You're checking if there’s already a saved list in the browser.If yes → load it from localStorage.If no → create an empty array ([]).
+
 
 // DOM elements
 const addItemForm = document.getElementById('add-item-form');
 const itemInput = document.getElementById('item-input');
 const shoppingListContainer = document.getElementById('shopping-list');
 const clearListButton = document.getElementById('clear-list');
+//You're storing references above to key parts of your HTML so you can work with them in JS.
 
-// Function to render the shopping list
-function renderShoppingList() {
+
+
+// Function to render the shopping list.
+function renderShoppingList() {                  //First, you clear the old list (innerHTML = '')Then loop through the shoppingList array .Create a <li> element for each item.Display the item’s name inside it
+  
   shoppingListContainer.innerHTML = '';         //It ensures the list is refreshed every time the function is called.
   shoppingList.forEach((item, index) => {      //For each item, it creates a new <li> element and adds it to the list.
     const li = document.createElement('li');   //A new <li> element is created for each item.
@@ -21,7 +26,7 @@ function renderShoppingList() {
     // Add click event to mark as purchased
     //When a list item is clicked, its purchased status is toggled (true becomes false, and vice versa).
 
-    li.addEventListener('click', () => {
+    li.addEventListener('click', () => {       //If an item is purchased, apply the class purchased (probably styled with a strikethrough in CSS).When you click a list item, it toggles its purchased status. Then re-saves and re-renders.
       shoppingList[index].purchased = !shoppingList[index].purchased;
       saveToLocalStorage();
       renderShoppingList();
